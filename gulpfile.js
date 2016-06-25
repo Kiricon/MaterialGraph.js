@@ -17,7 +17,9 @@ gulp.task('convertjs', function(){
           .pipe(gulp.dest('./dist'));
 });
 
-gulp.task('watchjs', ['convertjs'], browserSync.reload());
+gulp.task('watchjs', ['convertjs'], function(){
+  browserSync.reload();
+});
 
 gulp.task('browser-sync', function(){
   browserSync.init({

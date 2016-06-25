@@ -165,7 +165,7 @@ Graph.prototype.draw = function(e) {
 
 
 
-//####### Get the mouse postion on the canvas ########
+//####### Get the mouse postion on the canvas ######## 
 Graph.prototype.getMousePos = function(evt) {
     evt.preventDefault();
     var rect = this.canvas.getBoundingClientRect();

@@ -127,7 +127,7 @@ Graph.prototype.convert = function(){
     self.points.push(obj);
   });
 
-  console.log(this.points);
+  console.log(this.points); 
 
 }
 
@@ -146,7 +146,6 @@ Graph.prototype.getMousePos = function(evt) {
         };
     }
 }
-
 
 Graph.prototype.draw = function(e) {
     var canvas = this.canvas

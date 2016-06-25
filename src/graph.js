@@ -16,7 +16,7 @@ var Graph = function(canvas, dataset) {
 
     //this.init();
     this.convert();
-    //this.listen();
+    this.listen();
     this.draw();
 }
 
@@ -157,12 +157,13 @@ Graph.prototype.draw = function(e) {
     ctx.clearRect(0, 0, canvas.width, canvas.height); //Simple stuff to fill out our canvas
     ctx.fillStyle = "#FFF";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
-    ctx.fillStyle = "#FFF"
+    ctx.fillStyle = "#FFF";
+
+
+
     ctx.beginPath();
     ctx.save();
-
     var self = this;
-    ctx.beginPath();
     ctx.moveTo(this.points[0].x, this.points[0].y);
     for(var i =0; i < this.points.length; i++){
       ctx.lineTo(this.points[i].x, this.points[i].y);
@@ -170,4 +171,15 @@ Graph.prototype.draw = function(e) {
     ctx.strokeStyle = '#00C853';
     ctx.lineWidth = 2 * this.ratio;
     ctx.stroke();
+    ctx.restore();
+
+    if(this.position.x){
+      ctx.save();
+      ctx.beginPath();
+      ctx.moveTo(this.position.x, 0);
+      ctx.lineTo(this.position.x, canvas.height);
+      ctx.strokeStyle = "#777777";
+      ctx.stroke();
+      ctx.restore();
+    }
 };

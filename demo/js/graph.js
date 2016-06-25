@@ -20,7 +20,7 @@ var Graph = function(canvas, dataset) {
     this.draw();      //Draw up the graph using the converted points and mouse locations.
 }
 
-//########## INSTANTIATE THE GRAPH AND MAKE IT HIGH RESOLUTIOn ######
+//########## INSTANTIATE THE GRAPH AND MAKE IT HIGH RESOLUTION ######
 Graph.prototype.init = function() {
     var ctx = this.canvas.getContext("2d");
     this.makeHighRes();
@@ -45,6 +45,8 @@ Graph.prototype.listen = function() {
     }, false);
 }
 
+
+//### Convert the dataset in to usable points on the graph ####//
 Graph.prototype.convert = function(){
   var largestX = 0;
   var largestY = 0;

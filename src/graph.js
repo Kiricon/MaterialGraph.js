@@ -104,8 +104,8 @@ Graph.prototype.convert = function(){
   var diffY = Math.abs(largestY - smallestY);
 
   //var NewMax = this.canvas.Width * this.ratio;
-  var NewMax = this.canvas.width;
-  var NewMin = 0;
+  var NewMax = this.canvas.width -20;
+  var NewMin = 20;
   this.min = NewMin;
   this.max = NewMax;
   if(diffX > diffY){
@@ -122,7 +122,7 @@ Graph.prototype.convert = function(){
   this.dataset.forEach(function(value){
     var obj = {
       x: (((value.x - OldMin) * NewRange) / OldRange) + NewMin,
-      y: self.canvas.width - ((((value.y - OldMin) * NewRange) / OldRange) + NewMin)
+      y: (self.canvas.width-20) - ((((value.y - OldMin) * NewRange) / OldRange) + NewMin)
     };
     self.points.push(obj);
   });

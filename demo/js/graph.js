@@ -1,14 +1,10 @@
-var Graph = function(ticker, canvas){
-  this.ticker = ticker;
-  this.canvas = canvas; 
-  this.graph = {
-    history: [], points:[], max:"", min:"", previousClose: "", previousPoint: ""
-  };
-  this.time = "month";
+var Graph = function(canvas, dataset){
+  this.canvas = canvas;
+  this.dataset = dataset;
+  this.points = [];
   this.position = {x: 0, y: 0};
   this.highlight = "";
   this.point = {};
-  this.display = "";
   this.ratio = 1;
   this.realWidth;
 
@@ -20,17 +16,7 @@ var Graph = function(ticker, canvas){
 
 Graph.prototype.init = function () {
   var ctx = this.canvas.getContext("2d");
-
-  this.canvas.width = 700;
-  this.canvas.height = 500;
-  this.canvas.style.width = 700+"px";
-  this.canvas.style.height= 500+"px";
   this.makeHighRes();
-  /*
-  setInterval(function(){
-      this.refresh();
-    }, 10000); */
-    this.getHistory();
 }
 Graph.prototype.listen = function () {
   var self = this;

@@ -55,10 +55,10 @@ Graph.prototype.draw = function(e) {
       ctx.shadowOffsetY = 2;
       ctx.fill();
       ctx.restore();
-
+      //Make the axis and labels
+      this.drawAxis();
       //Make the tooltip
       this.drawTooltip(closest);
-      this.drawAxis();
     }
 
     function closest(num, arr) {

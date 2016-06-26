@@ -17,10 +17,10 @@ var Graph = function(canvas, dataset) {
 
     this.init();      //Instantiate the graph it self.
     this.convert();   //Convert the dataset to usable pixel points
-    this.listen();    //Listen for Mouse or Touch Events
     //this.draw();      //Draw up the graph using the converted points and mouse locations.
     var self = this;
     var timer=setInterval(function(){self.draw();},20);
+    this.listen();    //Listen for Mouse or Touch Events
 }
 
 //########## INSTANTIATE THE GRAPH AND MAKE IT HIGH RESOLUTION ######
@@ -93,7 +93,7 @@ Graph.prototype.convert = function(){
     var OldMax = largestY;
     var OldMin = smallestY;
   }
-  console.log(NewMax+" "+NewMin);
+  
   var OldRange = (OldMax - OldMin);
   var NewRange = (NewMax - NewMin);
   var self = this;
@@ -105,6 +105,5 @@ Graph.prototype.convert = function(){
     self.points.push(obj);
   });
 
-  console.log(this.points);
 
 }

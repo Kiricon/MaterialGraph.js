@@ -17,10 +17,10 @@ var Graph = function(canvas, dataset) {
 
     this.init();      //Instantiate the graph it self.
     this.convert();   //Convert the dataset to usable pixel points
-    this.listen();    //Listen for Mouse or Touch Events
     //this.draw();      //Draw up the graph using the converted points and mouse locations.
     var self = this;
     var timer=setInterval(function(){self.draw();},20);
+    this.listen();    //Listen for Mouse or Touch Events
 }
 
 //########## INSTANTIATE THE GRAPH AND MAKE IT HIGH RESOLUTION ######
@@ -93,7 +93,7 @@ Graph.prototype.convert = function(){
     var OldMax = largestY;
     var OldMin = smallestY;
   }
-  console.log(NewMax+" "+NewMin);
+  
   var OldRange = (OldMax - OldMin);
   var NewRange = (NewMax - NewMin);
   var self = this;
@@ -105,7 +105,6 @@ Graph.prototype.convert = function(){
     self.points.push(obj);
   });
 
-  console.log(this.points);
 
 }
 
@@ -122,6 +121,16 @@ Graph.prototype.drawAxis = function(){
   ctx.strokeStyle = "#777777";
   ctx.stroke();
   ctx.restore();
+
+  ctx.save();
+  ctx.beginPath();
+  ctx.fillStyle = "#000";
+  ctx.font = "12px Arial";
+  ctx.fillText("X", (padding/4), this.canvas.height-(padding/2)+3);
+  ctx.fillText("Y", (padding/2)-5, this.canvas.height-(padding/4)+5);
+  ctx.fill();
+  ctx.restore();
+
 
 }
 
@@ -182,10 +191,10 @@ Graph.prototype.draw = function(e) {
       ctx.shadowOffsetY = 2;
       ctx.fill();
       ctx.restore();
-
+      //Make the axis and labels
+      this.drawAxis();
       //Make the tooltip
       this.drawTooltip(closest);
-      this.drawAxis();
     }
 
     function closest(num, arr) {

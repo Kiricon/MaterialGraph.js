@@ -12,4 +12,14 @@ Graph.prototype.drawAxis = function(){
   ctx.stroke();
   ctx.restore();
 
+  ctx.save();
+  ctx.beginPath();
+  ctx.fillStyle = "#000";
+  ctx.font = "12px Arial";
+  ctx.fillText("X", (padding/4), this.canvas.height-(padding/2)+3);
+  ctx.fillText("Y", (padding/2)-5, this.canvas.height-(padding/4)+5);
+  ctx.fill();
+  ctx.restore();
+
+
 }

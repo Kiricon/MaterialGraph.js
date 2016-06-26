@@ -61,6 +61,7 @@ Graph.prototype.draw = function(e) {
                         if (newdiff < diff) {
                             diff = newdiff;
                             curr = arr[val];
+                            curr.index = val;
                         }
                     }
                     return curr;

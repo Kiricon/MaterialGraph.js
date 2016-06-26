@@ -29,6 +29,10 @@ Graph.prototype.draw = function(e) {
 
     if(this.position.x){
       var closest = closest(this.position.x, this.points);
+      if(closest.x != this.tooltip.oldx){
+        this.tooltip.oldx = closest.x;
+        this.tooltip.radius = 0;
+      }
       //Draw Line
       ctx.save();
       ctx.beginPath();
@@ -40,7 +44,10 @@ Graph.prototype.draw = function(e) {
       //Draw cirlce
       ctx.save();
       ctx.beginPath();
-      ctx.arc(closest.x, closest.y, 5*this.ratio, 0, 2 * Math.PI, false);
+      ctx.arc(closest.x, closest.y, this.tooltip.radius*this.ratio, 0, 2 * Math.PI, false);
+      if(this.tooltip.radius < 5){
+        this.tooltip.radius += 0.25;
+      }
       ctx.fillStyle = "#00C853";
       ctx.shadowColor = '#999';
       ctx.shadowBlur = 10;

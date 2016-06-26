@@ -12,7 +12,7 @@ var Graph = function(canvas, dataset) {
     this.point = {};
     this.ratio = 1;
     this.realWidth;
-    this.tooltip = {x: 0, y: 0};
+    this.tooltip = {x: 0, y: 0, radius: 0, oldx: 0};
 
 
     this.init();      //Instantiate the graph it self.
@@ -139,6 +139,10 @@ Graph.prototype.draw = function(e) {
 
     if(this.position.x){
       var closest = closest(this.position.x, this.points);
+      if(closest.x != this.tooltip.oldx){
+        this.tooltip.oldx = closest.x;
+        this.tooltip.radius = 0;
+      }
       //Draw Line
       ctx.save();
       ctx.beginPath();
@@ -150,7 +154,10 @@ Graph.prototype.draw = function(e) {
       //Draw cirlce
       ctx.save();
       ctx.beginPath();
-      ctx.arc(closest.x, closest.y, 5*this.ratio, 0, 2 * Math.PI, false);
+      ctx.arc(closest.x, closest.y, this.tooltip.radius*this.ratio, 0, 2 * Math.PI, false);
+      if(this.tooltip.radius < 5){
+        this.tooltip.radius += 0.25;
+      }
       ctx.fillStyle = "#00C853";
       ctx.shadowColor = '#999';
       ctx.shadowBlur = 10;
@@ -214,9 +221,10 @@ Graph.prototype.drawTooltip = function(closest){
   ctx.shadowOffsetX = 10;
   ctx.shadowOffsetY = 10;
   ctx.fill();
-//ctx.stroke();
   ctx.restore();
 
+
+  //Draw up the text for the tooltip. 
   ctx.save();
   ctx.beginPath();
   ctx.fillStyle = "#000";

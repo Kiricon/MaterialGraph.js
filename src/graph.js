@@ -12,7 +12,7 @@ var Graph = function(canvas, dataset) {
     this.point = {};
     this.ratio = 1;
     this.realWidth;
-    this.tooltip = {x: 0, y: 0};
+    this.tooltip = {x: 0, y: 0, radius: 0, oldx: 0};
 
 
     this.init();      //Instantiate the graph it self.

@@ -34,9 +34,10 @@ Graph.prototype.drawTooltip = function(closest){
   ctx.shadowOffsetX = 10;
   ctx.shadowOffsetY = 10;
   ctx.fill();
-//ctx.stroke();
   ctx.restore();
 
+
+  //Draw up the text for the tooltip. 
   ctx.save();
   ctx.beginPath();
   ctx.fillStyle = "#000";

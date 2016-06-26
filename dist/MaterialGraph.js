@@ -127,24 +127,50 @@ Graph.prototype.draw = function(e) {
     }
     ctx.strokeStyle = '#00C853';
     ctx.lineWidth = 2 * this.ratio;
+    ctx.shadowColor = '#999';
+    ctx.shadowBlur = 1;
+    ctx.shadowOffsetX = 2;
+    ctx.shadowOffsetY = 2;
     ctx.stroke();
     ctx.restore();
 
     if(this.position.x){
+      var closest = closest(this.position.x, this.points);
+      //Draw Line
       ctx.save();
       ctx.beginPath();
-      ctx.moveTo(this.position.x, 0);
-      ctx.lineTo(this.position.x, canvas.height);
+      ctx.moveTo(closest.x, 0);
+      ctx.lineTo(closest.x, canvas.height);
       ctx.strokeStyle = "#777777";
       ctx.stroke();
       ctx.restore();
-
+      //Draw cirlce
       ctx.save();
       ctx.beginPath();
-      var closest = closest(this.position.x, this.points);
       ctx.arc(closest.x, closest.y, 5, 0, 2 * Math.PI, false);
       ctx.fillStyle = "#00C853";
+      ctx.shadowColor = '#999';
+      ctx.shadowBlur = 10;
+      ctx.shadowOffsetX = 2;
+      ctx.shadowOffsetY = 2;
       ctx.fill();
+      ctx.restore();
+      //Draw tooltip
+      var displacement = 20;
+      if(this.position.x < closest.x){
+        displacement = -70;
+      }
+      ctx.save();
+      ctx.beginPath();
+      ctx.rect(closest.x+displacement, closest.y-10, 50, 20);
+      ctx.fillStyle = "#cccccc";
+      ctx.shadowColor = '#999';
+      ctx.shadowBlur = 10;
+      ctx.shadowOffsetX = 10;
+      ctx.shadowOffsetY = 10;
+      ctx.fill();
+    //ctx.stroke();
+      ctx.restore();
     }
 
     function closest(num, arr) {

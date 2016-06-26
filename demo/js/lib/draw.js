@@ -40,7 +40,7 @@ Graph.prototype.draw = function(e) {
       //Draw cirlce
       ctx.save();
       ctx.beginPath();
-      ctx.arc(closest.x, closest.y, 5, 0, 2 * Math.PI, false);
+      ctx.arc(closest.x, closest.y, 5*this.ratio, 0, 2 * Math.PI, false);
       ctx.fillStyle = "#00C853";
       ctx.shadowColor = '#999';
       ctx.shadowBlur = 10;
@@ -49,9 +49,9 @@ Graph.prototype.draw = function(e) {
       ctx.fill();
       ctx.restore();
       //Draw tooltip
-      var displacement = 20;
+      var displacement = 20*this.ratio;
       if(this.position.x > closest.x){
-        displacement = -70;
+        displacement = -70*this.ratio;
       }
       var rest = {x: closest.x+displacement, y: closest.y-10};
       var dif = {x: Math.abs(this.tooltip.x - rest.x)/15, y: Math.abs(this.tooltip.y - rest.y)/15};
@@ -74,7 +74,7 @@ Graph.prototype.draw = function(e) {
 
       ctx.save();
       ctx.beginPath();
-      ctx.rect(this.tooltip.x, this.tooltip.y, 50, 20);
+      ctx.rect(this.tooltip.x, this.tooltip.y, 50*this.ratio, 20*this.ratio);
       ctx.fillStyle = "#cccccc";
       ctx.shadowColor = '#999';
       ctx.shadowBlur = 10;

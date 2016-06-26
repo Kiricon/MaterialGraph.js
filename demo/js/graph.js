@@ -51,6 +51,7 @@ Graph.prototype.listen = function() {
 
 //### Convert the dataset in to usable points on the graph ####//
 Graph.prototype.convert = function(){
+  var padding = this.canvas.width /10;
   var largestX = 0;
   var largestY = 0;
 
@@ -81,8 +82,8 @@ Graph.prototype.convert = function(){
   var diffY = Math.abs(largestY - smallestY);
 
   //var NewMax = this.canvas.Width * this.ratio;
-  var NewMax = this.canvas.width -20;
-  var NewMin = 20;
+  var NewMax = this.canvas.width - padding;
+  var NewMin = padding;
   this.min = NewMin;
   this.max = NewMax;
   if(diffX > diffY){

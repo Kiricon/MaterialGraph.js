@@ -1,6 +1,9 @@
 Graph.prototype.drawTooltip = function(closest){
   //Draw tooltip
   var ctx = this.canvas.getContext("2d");
+  if(closest.index == undefined){
+    closest.index = 0;
+  }
   var toolTipText = "X:"+this.dataset[closest.index].x+" Y:"+this.dataset[closest.index].y;
   ctx.font = "15px Arial";
   var toolTip = ctx.measureText(toolTipText).width +15;
@@ -33,8 +36,8 @@ Graph.prototype.drawTooltip = function(closest){
   ctx.fillStyle = "#cccccc";
   ctx.shadowColor = '#999';
   ctx.shadowBlur = 10;
-  ctx.shadowOffsetX = 10;
-  ctx.shadowOffsetY = 10;
+  ctx.shadowOffsetX = 5;
+  ctx.shadowOffsetY = 5;
   ctx.fill();
   ctx.restore();
 

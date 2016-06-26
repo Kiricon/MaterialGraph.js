@@ -51,6 +51,7 @@ Graph.prototype.listen = function() {
 
 //### Convert the dataset in to usable points on the graph ####//
 Graph.prototype.convert = function(){
+  var padding = this.canvas.width /10;
   var largestX = 0;
   var largestY = 0;
 
@@ -81,8 +82,8 @@ Graph.prototype.convert = function(){
   var diffY = Math.abs(largestY - smallestY);
 
   //var NewMax = this.canvas.Width * this.ratio;
-  var NewMax = this.canvas.width -20;
-  var NewMin = 20;
+  var NewMax = this.canvas.width - padding;
+  var NewMin = padding;
   this.min = NewMin;
   this.max = NewMax;
   if(diffX > diffY){
@@ -188,6 +189,9 @@ Graph.prototype.draw = function(e) {
 Graph.prototype.drawTooltip = function(closest){
   //Draw tooltip
   var ctx = this.canvas.getContext("2d");
+  if(closest.index == undefined){
+    closest.index = 0;
+  }
   var toolTipText = "X:"+this.dataset[closest.index].x+" Y:"+this.dataset[closest.index].y;
   ctx.font = "15px Arial";
   var toolTip = ctx.measureText(toolTipText).width +15;
@@ -220,8 +224,8 @@ Graph.prototype.drawTooltip = function(closest){
   ctx.fillStyle = "#cccccc";
   ctx.shadowColor = '#999';
   ctx.shadowBlur = 10;
-  ctx.shadowOffsetX = 10;
-  ctx.shadowOffsetY = 10;
+  ctx.shadowOffsetX = 5;
+  ctx.shadowOffsetY = 5;
   ctx.fill();
   ctx.restore();
 

@@ -12,12 +12,15 @@ var Graph = function(canvas, dataset) {
     this.point = {};
     this.ratio = 1;
     this.realWidth;
+    this.tooltip = {x: 0, y: 0};
 
 
     this.init();      //Instantiate the graph it self.
     this.convert();   //Convert the dataset to usable pixel points
     this.listen();    //Listen for Mouse or Touch Events
-    this.draw();      //Draw up the graph using the converted points and mouse locations.
+    //this.draw();      //Draw up the graph using the converted points and mouse locations.
+    var self = this;
+    var timer=setInterval(function(){self.draw();},20);
 }
 
 //########## INSTANTIATE THE GRAPH AND MAKE IT HIGH RESOLUTION ######
@@ -31,17 +34,17 @@ Graph.prototype.listen = function() {
     var self = this;
     this.canvas.addEventListener('mousemove', function(evt) {
         self.position = self.getMousePos(evt);
-        self.draw();
+      //  self.draw();
     }, false);
 
     this.canvas.addEventListener('touchmove', function(evt) {
         self.position = self.getMousePos(evt);
-        self.draw();
+      //  self.draw();
     }, false);
 
     this.canvas.addEventListener('touchstart', function(evt) {
         self.position = self.getMousePos(evt);
-        self.draw();
+      //  self.draw();
     }, false);
 }
 
@@ -157,12 +160,31 @@ Graph.prototype.draw = function(e) {
       ctx.restore();
       //Draw tooltip
       var displacement = 20;
-      if(this.position.x < closest.x){
+      if(this.position.x > closest.x){
         displacement = -70;
       }
+      var rest = {x: closest.x+displacement, y: closest.y-10};
+      var dif = {x: Math.abs(this.tooltip.x - rest.x)/15, y: Math.abs(this.tooltip.y - rest.y)/15};
+      if(this.tooltip.x != rest.x ){
+        if(rest.x > this.tooltip.x){
+          this.tooltip.x += dif.x;
+        }else{
+          this.tooltip.x -= dif.x;
+        }
+      }
+
+      if(this.tooltip.y != rest.y ){
+        if(rest.y > this.tooltip.y){
+          this.tooltip.y += dif.y;
+        }else{
+          this.tooltip.y -= dif.y;
+        }
+      }
+
+
       ctx.save();
       ctx.beginPath();
-      ctx.rect(closest.x+displacement, closest.y-10, 50, 20);
+      ctx.rect(this.tooltip.x, this.tooltip.y, 50, 20);
       ctx.fillStyle = "#cccccc";
       ctx.shadowColor = '#999';
       ctx.shadowBlur = 10;

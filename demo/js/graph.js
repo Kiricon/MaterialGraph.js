@@ -12,12 +12,15 @@ var Graph = function(canvas, dataset) {
     this.point = {};
     this.ratio = 1;
     this.realWidth;
+    this.tooltip = {x: 0, y: 0};
 
 
     this.init();      //Instantiate the graph it self.
     this.convert();   //Convert the dataset to usable pixel points
     this.listen();    //Listen for Mouse or Touch Events
-    this.draw();      //Draw up the graph using the converted points and mouse locations.
+    //this.draw();      //Draw up the graph using the converted points and mouse locations.
+    var self = this;
+    var timer=setInterval(function(){self.draw();},20);
 }
 
 //########## INSTANTIATE THE GRAPH AND MAKE IT HIGH RESOLUTION ######
@@ -31,17 +34,17 @@ Graph.prototype.listen = function() {
     var self = this;
     this.canvas.addEventListener('mousemove', function(evt) {
         self.position = self.getMousePos(evt);
-        self.draw();
+      //  self.draw();
     }, false);
 
     this.canvas.addEventListener('touchmove', function(evt) {
         self.position = self.getMousePos(evt);
-        self.draw();
+      //  self.draw();
     }, false);
 
     this.canvas.addEventListener('touchstart', function(evt) {
         self.position = self.getMousePos(evt);
-        self.draw();
+      //  self.draw();
     }, false);
 }
 

@@ -58,6 +58,7 @@ Graph.prototype.draw = function(e) {
 
       //Make the tooltip
       this.drawTooltip(closest);
+      this.drawAxis();
     }
 
     function closest(num, arr) {

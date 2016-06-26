@@ -109,6 +109,22 @@ Graph.prototype.convert = function(){
 
 }
 
+Graph.prototype.drawAxis = function(){
+  ctx = this.canvas.getContext('2d');
+  var padding = this.canvas.width /10;
+
+  ctx.save();
+  ctx.beginPath();
+  ctx.moveTo(padding/2, this.canvas.height-(padding/2));
+  ctx.lineTo(this.canvas.width, this.canvas.height-(padding/2));
+  ctx.moveTo(padding/2, 0);
+  ctx.lineTo(padding/2, this.canvas.height-(padding/2));
+  ctx.strokeStyle = "#777777";
+  ctx.stroke();
+  ctx.restore();
+
+}
+
 Graph.prototype.draw = function(e) {
     var canvas = this.canvas
     var ctx = canvas.getContext("2d");
@@ -169,6 +185,7 @@ Graph.prototype.draw = function(e) {
 
       //Make the tooltip
       this.drawTooltip(closest);
+      this.drawAxis();
     }
 
     function closest(num, arr) {

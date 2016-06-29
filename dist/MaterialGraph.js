@@ -144,6 +144,7 @@ Graph.prototype.drawAxis = function(){
 
 Graph.prototype.draw = function(e) {
     var canvas = this.canvas
+    this.canvas.style.cursor = "crosshair";
     var ctx = canvas.getContext("2d");
     var point = "";
     var i = 0;
@@ -169,11 +170,14 @@ Graph.prototype.draw = function(e) {
     }else{
         var xdiff = Math.abs(this.drawPoints[i].x - this.points[i].x);
         var ydiff = Math.abs(this.drawPoints[i].y - this.points[i].y);
+        //Here is where we determine the speed of the graph being drawn
+        var mindiffx = this.canvas.width /100;
+        var mindiffy = this.canvas.height /100;
         //console.log(xdiff);
-        if(xdiff > 2){
+        if(xdiff > mindiffx){
         xdiff = xdiff/6;
         }
-        if(ydiff > 2){
+        if(ydiff > mindiffy){
         ydiff = ydiff /6;
         }
         if(this.points[i].x < this.drawPoints[i].x){
@@ -228,6 +232,9 @@ Graph.prototype.draw = function(e) {
       ctx.shadowOffsetX = 2;
       ctx.shadowOffsetY = 2;
       ctx.fill();
+      ctx.lineWidth = 2;
+      ctx.strokeStyle = '#333';
+      ctx.stroke();
       ctx.restore();
       //Make the axis and labels
       this.drawAxis();

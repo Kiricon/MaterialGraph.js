@@ -1,7 +1,6 @@
 Graph.prototype.drawAxis = function(){
   ctx = this.canvas.getContext('2d');
   var padding = this.canvas.width /10;
-
   ctx.save();
   ctx.beginPath();
   ctx.moveTo(padding/2, this.canvas.height-(padding/2));

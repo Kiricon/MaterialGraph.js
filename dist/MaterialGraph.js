@@ -13,7 +13,7 @@ var Graph = function(canvas, dataset) {
     this.point = {};
     this.ratio = 1;
     this.realWidth;
-    this.tooltip = {x: 0, y: 0, radius: 0, oldx: 0};
+    this.tooltip = {x: this.canvas.width/2, y: this.canvas.height/2, radius: 0, oldx: 0};
 
 
     this.init();      //Instantiate the graph it self.
@@ -120,7 +120,6 @@ Graph.prototype.convert = function(){
 Graph.prototype.drawAxis = function(){
   ctx = this.canvas.getContext('2d');
   var padding = this.canvas.width /10;
-
   ctx.save();
   ctx.beginPath();
   ctx.moveTo(padding/2, this.canvas.height-(padding/2));
@@ -164,6 +163,9 @@ Graph.prototype.draw = function(e) {
     while(i < this.points.length){
     if(this.points[i].x == this.drawPoints[i].x && this.points[i].y == this.drawPoints[i].y){
       ctx.lineTo(this.points[i].x, this.points[i].y);
+      if(i == this.points.length-1){
+        this.position = {x: 1, y:1};
+      }
     }else{
         var xdiff = Math.abs(this.drawPoints[i].x - this.points[i].x);
         var ydiff = Math.abs(this.drawPoints[i].y - this.points[i].y);

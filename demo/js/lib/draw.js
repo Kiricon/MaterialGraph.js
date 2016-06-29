@@ -19,6 +19,9 @@ Graph.prototype.draw = function(e) {
     while(i < this.points.length){
     if(this.points[i].x == this.drawPoints[i].x && this.points[i].y == this.drawPoints[i].y){
       ctx.lineTo(this.points[i].x, this.points[i].y);
+      if(i == this.points.length-1){
+        this.position = {x: 1, y:1};
+      }
     }else{
         var xdiff = Math.abs(this.drawPoints[i].x - this.points[i].x);
         var ydiff = Math.abs(this.drawPoints[i].y - this.points[i].y);

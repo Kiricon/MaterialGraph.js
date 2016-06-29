@@ -153,6 +153,7 @@ Graph.prototype.draw = function(e) {
     ctx.fillStyle = "#FFF";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     ctx.fillStyle = "#FFF";
+    var padding = this.canvas.width /10;
 
 
 
@@ -215,7 +216,7 @@ Graph.prototype.draw = function(e) {
       ctx.save();
       ctx.beginPath();
       ctx.moveTo(closest.x, 0);
-      ctx.lineTo(closest.x, canvas.height);
+      ctx.lineTo(closest.x, canvas.height-padding/2);
       ctx.strokeStyle = "#777777";
       ctx.stroke();
       ctx.restore();

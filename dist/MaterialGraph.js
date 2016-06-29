@@ -2,6 +2,7 @@ var Graph = function(canvas, dataset) {
     this.canvas = canvas;
     this.dataset = dataset;
     this.points = [];
+    this.drawPoints = [];
     this.position = {
         x: 0,
         y: 0
@@ -93,19 +94,27 @@ Graph.prototype.convert = function(){
     var OldMax = largestY;
     var OldMin = smallestY;
   }
-  
+
   var OldRange = (OldMax - OldMin);
   var NewRange = (NewMax - NewMin);
   var self = this;
-  this.dataset.forEach(function(value){
+  this.dataset.forEach(function(value, index){
     var obj = {
-      x: (((value.x - OldMin) * NewRange) / OldRange) + NewMin,
-      y: (self.canvas.width-20) - ((((value.y - OldMin) * NewRange) / OldRange) + NewMin)
+      x: Math.round((((value.x - OldMin) * NewRange) / OldRange) + NewMin),
+      y: Math.round((self.canvas.width-20) - ((((value.y - OldMin) * NewRange) / OldRange) + NewMin))
     };
-    self.points.push(obj);
+    self.drawPoints.push(obj);
+    if(self.drawPoints[index-1]){
+    var prevobj = {x:self.drawPoints[index -1].x, y: self.drawPoints[index-1].y};
+    self.points.push(prevobj);
+  }else{
+    console.log('this happens');
+    self.points.push({x: 0, y:0});
+  }
   });
-
-
+  this.points[0] = {x:this.drawPoints[0].x, y:this.drawPoints[0].y};
+  console.log(this.points);
+  console.log(this.drawPoints);
 }
 
 Graph.prototype.drawAxis = function(){
@@ -151,8 +160,35 @@ Graph.prototype.draw = function(e) {
     ctx.save();
     var self = this;
     ctx.moveTo(this.points[0].x, this.points[0].y);
-    for(var i =0; i < this.points.length; i++){
+    var i = 0;
+    while(i < this.points.length){
+    if(this.points[i].x == this.drawPoints[i].x && this.points[i].y == this.drawPoints[i].y){
       ctx.lineTo(this.points[i].x, this.points[i].y);
+    }else{
+        var xdiff = Math.abs(this.drawPoints[i].x - this.points[i].x);
+        var ydiff = Math.abs(this.drawPoints[i].y - this.points[i].y);
+        //console.log(xdiff);
+        if(xdiff > 2){
+        xdiff = xdiff/6;
+        }
+        if(ydiff > 2){
+        ydiff = ydiff /6;
+        }
+        if(this.points[i].x < this.drawPoints[i].x){
+          this.points[i].x +=xdiff;
+        }else if(this.points[i].x > this.drawPoints[i].x){
+          this.points[i].x -=xdiff;
+        }
+
+        if(this.points[i].y < this.drawPoints[i].y){
+          this.points[i].y +=ydiff;
+        }else if(this.points[i].y > this.drawPoints[i].y){
+          this.points[i].y -=ydiff;
+        }
+        ctx.lineTo(this.points[i].x, this.points[i].y);
+        i = this.points.length+1;
+      }
+      i++;
     }
     ctx.strokeStyle = '#00C853';
     ctx.lineWidth = 2 * this.ratio;

@@ -2,6 +2,7 @@ var Graph = function(canvas, dataset) {
     this.canvas = canvas;
     this.dataset = dataset;
     this.points = [];
+    this.drawPoints = [];
     this.position = {
         x: 0,
         y: 0
@@ -93,17 +94,25 @@ Graph.prototype.convert = function(){
     var OldMax = largestY;
     var OldMin = smallestY;
   }
-  
+
   var OldRange = (OldMax - OldMin);
   var NewRange = (NewMax - NewMin);
   var self = this;
-  this.dataset.forEach(function(value){
+  this.dataset.forEach(function(value, index){
     var obj = {
-      x: (((value.x - OldMin) * NewRange) / OldRange) + NewMin,
-      y: (self.canvas.width-20) - ((((value.y - OldMin) * NewRange) / OldRange) + NewMin)
+      x: Math.round((((value.x - OldMin) * NewRange) / OldRange) + NewMin),
+      y: Math.round((self.canvas.width-20) - ((((value.y - OldMin) * NewRange) / OldRange) + NewMin))
     };
-    self.points.push(obj);
+    self.drawPoints.push(obj);
+    if(self.drawPoints[index-1]){
+    var prevobj = {x:self.drawPoints[index -1].x, y: self.drawPoints[index-1].y};
+    self.points.push(prevobj);
+  }else{
+    console.log('this happens');
+    self.points.push({x: 0, y:0});
+  }
   });
-
-
+  this.points[0] = {x:this.drawPoints[0].x, y:this.drawPoints[0].y};
+  console.log(this.points);
+  console.log(this.drawPoints);
 }

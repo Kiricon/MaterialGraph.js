@@ -15,8 +15,35 @@ Graph.prototype.draw = function(e) {
     ctx.save();
     var self = this;
     ctx.moveTo(this.points[0].x, this.points[0].y);
-    for(var i =0; i < this.points.length; i++){
+    var i = 0;
+    while(i < this.points.length){
+    if(this.points[i].x == this.drawPoints[i].x && this.points[i].y == this.drawPoints[i].y){
       ctx.lineTo(this.points[i].x, this.points[i].y);
+    }else{
+        var xdiff = Math.abs(this.drawPoints[i].x - this.points[i].x);
+        var ydiff = Math.abs(this.drawPoints[i].y - this.points[i].y);
+        //console.log(xdiff);
+        if(xdiff > 2){
+        xdiff = xdiff/6;
+        }
+        if(ydiff > 2){
+        ydiff = ydiff /6;
+        }
+        if(this.points[i].x < this.drawPoints[i].x){
+          this.points[i].x +=xdiff;
+        }else if(this.points[i].x > this.drawPoints[i].x){
+          this.points[i].x -=xdiff;
+        }
+
+        if(this.points[i].y < this.drawPoints[i].y){
+          this.points[i].y +=ydiff;
+        }else if(this.points[i].y > this.drawPoints[i].y){
+          this.points[i].y -=ydiff;
+        }
+        ctx.lineTo(this.points[i].x, this.points[i].y);
+        i = this.points.length+1;
+      }
+      i++;
     }
     ctx.strokeStyle = '#00C853';
     ctx.lineWidth = 2 * this.ratio;

@@ -13,7 +13,8 @@ var dataset = [
     {x: 2, y:3},
     {x: 7, y: 5}
     ];
-var graph = new Graph('#canvas', dataset);
+var graph = new Graph('#canvas', dataset); //Get the graph ready
+var graph.init(); // Draw the graph
 ```
 
 ## License

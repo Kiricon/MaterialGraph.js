@@ -16,17 +16,15 @@ var Graph = function(canvas, dataset) {
     this.tooltip = {x: this.canvas.width/2, y: this.canvas.height/2, radius: 0, oldx: 0};
 
 
-    this.init();      //Instantiate the graph it self.
+    this.makeHighRes();      //Instantiate the graph it self.
     this.convert();   //Convert the dataset to usable pixel points
-    var self = this;
-    var timer=setInterval(function(){self.draw();},20);
-    this.listen();    //Listen for Mouse or Touch Events
 }
 
-//########## INSTANTIATE THE GRAPH AND MAKE IT HIGH RESOLUTION ######
+//########## INSTANTIATE THE GRAPH AND DRAWS IT ######
 Graph.prototype.init = function() {
-    var ctx = this.canvas.getContext("2d");
-    this.makeHighRes();
+  var self = this;
+  var timer=setInterval(function(){self.draw();},20);
+  this.listen();    //Listen for Mouse or Touch Events
 }
 
 //######### LISTEN FOR MOUSE EVENTS ON THE GRAPH ######

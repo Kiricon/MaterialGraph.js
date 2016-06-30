@@ -11,3 +11,4 @@ var dataset = [
 ]
 
 var graph = new Graph('#canvas', dataset );
+graph.init();

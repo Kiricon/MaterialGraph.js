@@ -10,4 +10,4 @@ var dataset = [
   {x: 19, y:8}
 ]
 
-var graph = new Graph(document.getElementById('canvas'), dataset );
+var graph = new Graph('#canvas', dataset );

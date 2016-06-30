@@ -2,7 +2,7 @@
 
 
 
-//####### Get the mouse postion on the canvas ######## 
+//####### Get the mouse postion on the canvas ########
 Graph.prototype.getMousePos = function(evt) {
     evt.preventDefault();
     var rect = this.canvas.getBoundingClientRect();
@@ -48,4 +48,21 @@ Graph.prototype.makeHighRes = function() {
         this.ratio = ratio;
         ctx.restore();
     }
+}
+
+
+//########## Used to parse a string in to an element using jquery notation ########//
+Graph.prototype.readElementString = function(data){
+  var string = data; // The reason why we do this is because now string has all the methods prototyped to it
+  var type = string.charAt(0);
+  var name = string.substr(1);
+  if(type == "#"){
+    var element = document.getElementById(name);
+  }else if(type == "."){
+    var element = document.getElementsByClassName(name)[0];
+  }else{
+    var element = document.getElementsByTagName(string)[0];
+  }
+
+  return element;
 }

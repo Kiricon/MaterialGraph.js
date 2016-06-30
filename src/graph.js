@@ -1,5 +1,5 @@
 var Graph = function(canvas, dataset) {
-    this.canvas = canvas;
+    this.canvas = this.readElementString(canvas);
     this.dataset = dataset;
     this.points = [];
     this.drawPoints = [];
@@ -18,7 +18,6 @@ var Graph = function(canvas, dataset) {
 
     this.init();      //Instantiate the graph it self.
     this.convert();   //Convert the dataset to usable pixel points
-    //this.draw();      //Draw up the graph using the converted points and mouse locations.
     var self = this;
     var timer=setInterval(function(){self.draw();},20);
     this.listen();    //Listen for Mouse or Touch Events

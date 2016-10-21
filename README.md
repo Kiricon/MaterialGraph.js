@@ -6,7 +6,7 @@
 The files need for installation are located at /dist
 
 ## Use
-To use material graph simply import the MaterialGraph.min.js file in to your project and then create a new instance of the Graph class. The graph class takes two variables on instantiation . A string for the element you want to reference and a dataset.
+To use material graph simply import the MaterialGraph.min.js file in to your project and then create a new instance of the Graph class. The graph class constructor takes two arguments, a string for the element you want to reference and a dataset.
 ```javascript
 var dataset = [
     {x: 0, y:0},
